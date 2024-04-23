@@ -5,12 +5,14 @@ function App() {
   const [threads, setThreads] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [newThreadTitle, setNewThreadTitle] = useState("");
+  const [newThreadText, setNewThreadText] = useState("");
 
   const handleAddThread = () => {
     if (newThreadTitle) {
       const newThread = {
         id: threads.length + 1,
         title: newThreadTitle,
+        text: newThreadText,
       };
       setThreads([...threads, newThread]);
       setNewThreadTitle("");
@@ -34,7 +36,8 @@ function App() {
 
       <div className="mb-6">
         <input type="text" className="input input-bordered w-full max-w-xs" placeholder="Start a new thread..." value={newThreadTitle} onChange={(e) => setNewThreadTitle(e.target.value)} />
-        <button className="btn btn-primary ml-2" onClick={handleAddThread}>
+        <textarea className="textarea textarea-bordered w-full max-w-xs" placeholder="Thread details..." value={newThreadText} onChange={(e) => setNewThreadText(e.target.value)}></textarea>
+        <button className="btn btn-primary ml-2 mt-2" onClick={handleAddThread}>
           Add Thread
         </button>
       </div>
@@ -45,7 +48,8 @@ function App() {
           <ul className="list-disc pl-5">
             {filteredThreads.map((thread) => (
               <li key={thread.id} className="mt-2">
-                {thread.title}
+                <strong>{thread.title}</strong>
+                <p>{thread.text}</p>
               </li>
             ))}
           </ul>
